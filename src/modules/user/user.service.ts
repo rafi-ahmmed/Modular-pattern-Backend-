@@ -1,6 +1,8 @@
 import { pool } from '../../db';
 import type { IUser } from './user.interface';
 import bcrypt from 'bcrypt';
+
+
 const createUserIntoDB = async (payload: IUser) => {
    const { name, email, password, age } = payload;
 
@@ -51,7 +53,8 @@ const updateUserIntoDB = async (payload: IUser, id: string) => {
       age=COALESCE($3,age),
       is_active=COALESCE($4,is_active)
 
-      WHERE id = $5 RETURNING * 
+      WHERE id = $5 
+      RETURNING * 
       `,
       [name, password, age, is_active, id]
    );
