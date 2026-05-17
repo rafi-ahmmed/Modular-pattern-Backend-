@@ -55,7 +55,9 @@ const getSingleProfileFromDB = async (id: string) => {
 
 const updateProfileIntoDB = async (payload: IProfile, userId: string) => {
    const { bio, address, gender, phone, password } = payload;
-
+   // *first check profile is exist
+   // * check is password is correct
+   // * Update profile
    const profile = await pool.query(
       `
          SELECT * FROM profiles
@@ -86,7 +88,8 @@ const updateProfileIntoDB = async (payload: IProfile, userId: string) => {
       throw new Error('Your Password is incorrect!');
    }
 
-   const result = await pool.query(`
+   const result = await pool.query(
+      `
          UPDATE profiles 
          SET
          bio=COALESCE($1,bio),
@@ -97,14 +100,12 @@ const updateProfileIntoDB = async (payload: IProfile, userId: string) => {
          WHERE user_id=$5
          RETURNING *
 
-      `,[bio,address,phone,gender,userId]);
+      `,
+      [bio, address, phone, gender, userId]
+   );
 
    return result.rows[0];
    // console.log(result.rows[0]);
-
-   // *first check profile is exist
-   // * check is password is correct
-   // * Update profile
 };
 
 export const profileService = {
