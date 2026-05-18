@@ -1,17 +1,20 @@
 import type { Request, Response } from 'express';
 import { profileService } from './profile.service';
+import sendResponse from '../../utility/sendResponse';
 
 const createProfile = async (req: Request, res: Response) => {
    try {
       const result = await profileService.createProfileInDB(req.body);
-      res.status(201).json({
+      sendResponse(res, {
          success: true,
+         statusCode: 210,
          message: 'Profile created successfull!',
          data: result.rows[0],
       });
    } catch (error: any) {
-      res.status(500).json({
+      sendResponse(res, {
          success: false,
+         statusCode: 500,
          message: error.message,
          error: error,
       });
@@ -21,13 +24,15 @@ const createProfile = async (req: Request, res: Response) => {
 const getAllProfiles = async (req: Request, res: Response) => {
    try {
       const result = await profileService.getAllProfileFromDB();
-      return res.status(200).json({
+      sendResponse(res, {
          success: true,
-         profiles: result,
+         statusCode: 200,
+         data: result,
       });
    } catch (error: any) {
-      return res.status(500).json({
+      sendResponse(res, {
          success: false,
+         statusCode:500,
          message: error.message,
          error: error,
       });
@@ -38,13 +43,15 @@ const getProfile = async (req: Request, res: Response) => {
    const { id } = req.params;
    try {
       const result = await profileService.getSingleProfileFromDB(id as string);
-      return res.status(200).json({
+      sendResponse(res, {
          success: true,
-         profile: result,
+         statusCode: 200,
+         data: result,
       });
    } catch (error: any) {
-      return res.status(500).json({
+      sendResponse(res, {
          success: false,
+         statusCode: 500,
          message: error.message,
          error: error,
       });
@@ -58,14 +65,16 @@ const updateProfile = async (req: Request, res: Response) => {
          req.body,
          id as string
       );
-      return res.status(200).json({
+      sendResponse(res, {
          success: true,
+         statusCode: 200,
          message: 'Your Profile updated successfully!',
-         profile: result,
+         data: result,
       });
    } catch (error: any) {
-      return res.status(500).json({
+      sendResponse(res, {
          success: false,
+         statusCode: 500,
          message: error.message,
          error: error,
       });
