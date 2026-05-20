@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express';
-import { profileService } from './profile.service';
-import sendResponse from '../../utility/sendResponse';
+import { profileService } from './profile.service.js';
+import sendResponse from '../../utility/sendResponse.js';
 
 const createProfile = async (req: Request, res: Response) => {
    try {
@@ -8,7 +8,7 @@ const createProfile = async (req: Request, res: Response) => {
       sendResponse(res, {
          success: true,
          statusCode: 210,
-         message: 'Profile created successfull!',
+         message: 'Profile created successful!',
          data: result.rows[0],
       });
    } catch (error: any) {
@@ -32,7 +32,7 @@ const getAllProfiles = async (req: Request, res: Response) => {
    } catch (error: any) {
       sendResponse(res, {
          success: false,
-         statusCode:500,
+         statusCode: 500,
          message: error.message,
          error: error,
       });

@@ -4,13 +4,13 @@ import express, {
    type Request,
    type Response,
 } from 'express';
-import { userRoute } from './modules/user/user.route';
-import { profileRouter } from './modules/profile/profile.route';
-import { authRouter } from './modules/auth/auth.route';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import logger from './middleware/logger';
-import globalErrHandler from './middleware/globalErrorHandler';
+import logger from './middleware/logger.js';
+import { userRoute } from './modules/user/user.route.js';
+import { profileRouter } from './modules/profile/profile.route.js';
+import { authRouter } from './modules/auth/auth.route.js';
+import globalErrHandler from './middleware/globalErrorHandler.js';
 
 const app: Application = express();
 

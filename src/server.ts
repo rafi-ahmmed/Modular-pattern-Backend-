@@ -1,6 +1,9 @@
-import app from './app';
-import config from './config';
-import { initDB } from './db';
+
+import app from './app.js';
+import config from './config/index.js';
+import { initDB } from './db/index.js';
+
+
 
 const main = () => {
    initDB();

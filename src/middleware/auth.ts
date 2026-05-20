@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from 'express';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
-import config from '../config';
-import { pool } from '../db';
-import type { ROLES } from '../types';
+import type { ROLES } from '../types/index.js';
+import config from '../config/index.js';
+import { pool } from '../db/index.js';
 
 const auth = (...roles: ROLES[]) => {
    return async (req: Request, res: Response, next: NextFunction) => {
@@ -63,7 +63,7 @@ const auth = (...roles: ROLES[]) => {
          req.user = decoded; //req:{user:{}}
          next();
       } catch (error) {
-         next(error); //! TODO something
+         next(error);
       }
    };
 };

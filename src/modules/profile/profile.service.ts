@@ -1,6 +1,7 @@
-import { pool } from '../../db';
-import type { IProfile } from './profile.interface';
+
 import bcrypt from 'bcrypt';
+import type { IProfile } from './profile.interface.js';
+import { pool } from '../../db/index.js';
 
 const createProfileInDB = async (payload: any) => {
    const { user_id, boi, address, phone, gender } = payload;
